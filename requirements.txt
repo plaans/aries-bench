@@ -1,0 +1,2 @@
+plotly==6.2
+polars==1.31

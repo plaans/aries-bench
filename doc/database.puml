@@ -1,0 +1,95 @@
+@startuml "database"
+
+left to right direction
+hide circle
+hide methods
+
+note as comment
+    Each box is a dataframe.
+    The dotted line separate 
+    basic columns from 
+    computed columns.
+end note
+
+
+class problem {
+    id: u32
+    name: cat
+    ..
+    type: enum
+}
+
+class flatzinc {
+    id: u32
+    name: cat
+    ..
+    objective_lb: i64
+    objective_ub: i64
+    objective_bb: i64
+    objective_wb: i64
+    time_fsol: duration
+    time_lsol: duration
+    num_decisions_fsol: u64
+    num_decisions_lsol: u64
+}
+
+class configuration {
+    id: u32
+    name: cat
+    var_order: cat
+    value_order: cat
+    reset: cat
+    ..
+}
+
+class run {
+    id: u32
+    ..
+    objective_lb: i64
+    objective_ub: i64
+    objective_bb: i64
+    objective_wb: i64
+    num_solutions: u64
+    objective_score: f64
+    time_fsol: duration
+    time_lsol: duration
+    num_decisions_fsol: u64
+    num_decisions_lsol: u64
+    autc_score: f64
+    audc_score: f64
+}
+
+class event {
+    id: u32
+    type: enum
+    num_solutions: u64
+    objective: i64
+    time: duration
+    num_decisions: u64
+    num_conflicts: u64
+    num_dom_updates: u64
+    num_restarts: u64
+    ..
+}
+
+class raw {
+    configuration: cat
+    problem: cat
+    flatzinc: cat
+    type: enum
+    num_solutions: u64
+    objective: i64
+    time: duration
+    num_decisions: u64
+    num_conflicts: u64
+    num_dom_updates: u64
+    num_restarts: u64
+    ..
+}
+
+event "*" -- "1" run
+run "*" -- "1" configuration
+run "*" -- "1" flatzinc
+flatzinc "*" -- "1" problem
+
+@enduml

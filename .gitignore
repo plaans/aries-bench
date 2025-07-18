@@ -1,0 +1,5 @@
+/flatzinc/
+/minizinc/
+/results/
+/slurm/
+*.fzn
